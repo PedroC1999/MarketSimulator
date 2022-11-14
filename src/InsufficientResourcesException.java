@@ -1,5 +1,5 @@
-public class InsufficientFundsException extends Exception{
-    public InsufficientFundsException(String errorMessage) {
+public class InsufficientResourcesException extends Exception{
+    public InsufficientResourcesException(String errorMessage) {
         super(errorMessage);
     }
 }
