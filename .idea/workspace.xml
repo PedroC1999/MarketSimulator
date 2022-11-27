@@ -1,19 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5601c221-c267-475c-b57b-62380898d755" name="Changes" comment="Many chnages, major JavaDoc process, refactored how Transactions are stored">
+    <list default="true" id="5601c221-c267-475c-b57b-62380898d755" name="Changes" comment="Completed majority of JavaDoc, cleaned up code">
+      <change afterPath="$PROJECT_DIR$/.idea/intellij-javadocs-4.0.1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/Asset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/Company.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/Controller.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/DailyData.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/InsufficientFundsException.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/InsufficientResourcesException.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/Main.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/Market.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/Trader.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/TraderBasic.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/Transaction.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/allclasses-index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/allpackages-index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/copy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/element-list" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/help-doc.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-10.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-11.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-12.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-3.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-4.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-5.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-6.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-7.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-8.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/index-files/index-9.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/jquery-ui.overrides.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/legal/ADDITIONAL_LICENSE_INFO" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/legal/ASSEMBLY_EXCEPTION" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/legal/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/legal/jquery.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/legal/jqueryUI.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/member-search-index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/module-search-index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/overview-tree.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/package-search-index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/package-summary.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/package-tree.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/resources/glass.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/resources/x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/script-dir/images/ui-bg_glass_55_fbf9ee_1x400.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/script-dir/images/ui-bg_glass_65_dadada_1x400.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/script-dir/images/ui-bg_glass_75_dadada_1x400.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/script-dir/images/ui-bg_glass_75_e6e6e6_1x400.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/script-dir/images/ui-bg_glass_95_fef1ec_1x400.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/script-dir/images/ui-bg_highlight-soft_75_cccccc_1x100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/script-dir/images/ui-icons_222222_256x240.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/script-dir/images/ui-icons_2e83ff_256x240.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/script-dir/images/ui-icons_454545_256x240.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/script-dir/images/ui-icons_888888_256x240.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/script-dir/images/ui-icons_cd0a0a_256x240.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/script-dir/jquery-3.5.1.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/script-dir/jquery-ui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/script-dir/jquery-ui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/script-dir/jquery-ui.structure.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/search.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/serialized-form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/stylesheet.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/tag-search-index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaDoc/type-search-index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/KLAC.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Asset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Asset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Company.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DailyData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DailyData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InsufficientFundsException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InsufficientFundsException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InsufficientResourcesException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InsufficientResourcesException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Market.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Market.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Trader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Trader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TraderBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TraderBasic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Transaction.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +156,7 @@
       <workItem from="1665425119233" duration="3043000" />
       <workItem from="1668434795817" duration="3635000" />
       <workItem from="1669226972691" duration="33647000" />
-      <workItem from="1669541995086" duration="8818000" />
+      <workItem from="1669541995086" duration="16152000" />
     </task>
     <task id="LOCAL-00001" summary="Fundamentals Completed">
       <created>1668434826704</created>
@@ -113,7 +172,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669547447059</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Completed majority of JavaDoc, cleaned up code">
+      <created>1669555368763</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1669555368763</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,7 +199,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fundamentals Completed" />
     <MESSAGE value="Many chnages, major JavaDoc process, refactored how Transactions are stored" />
-    <option name="LAST_COMMIT_MESSAGE" value="Many chnages, major JavaDoc process, refactored how Transactions are stored" />
+    <MESSAGE value="Completed majority of JavaDoc, cleaned up code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed majority of JavaDoc, cleaned up code" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

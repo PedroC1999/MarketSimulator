@@ -11,23 +11,22 @@ public class Controller implements Runnable {
         this.tickDuration = tickDuration;
     }
 
-
     @Override
     public void run() {
         while (this.market.isActive()) {
             if (this.tickDuration != -1) {
+
+            } else {
                 try {
                     Thread.sleep(tickDuration);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                /*
-                    Potentially prompt every "agent" to run their algorithms here
-                 */
                 market.nextDay();
+                for (Trader e:market.getControlledTraders()) {
+                    e.Run();
+                }
                 System.out.println(market);
-            } else {
-
             }
         }
     }

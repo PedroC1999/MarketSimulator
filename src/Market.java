@@ -1,5 +1,6 @@
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -12,6 +13,8 @@ public class Market {
     private final LocalDate startDate;
     private LocalDate currentDate;
     private boolean active = false;
+
+    private ArrayList<Trader> controlledTraders = new ArrayList<>();
 
     /**
      * Instantiates a new Market. Trading is disabled by default and must be started using start() or toggleActive().
@@ -30,6 +33,27 @@ public class Market {
      */
     public void start() {
         active = true;
+    }
+
+    /**
+     * Gets current list of traders being controlled by the market.
+     *
+     * @return Populated list of traders.
+     */
+    public ArrayList<Trader> getControlledTraders(){
+        return this.controlledTraders;
+    }
+
+    /**
+     * Adds a trader to the list of controlledTraders, which allow for trading to be automated using each trader's
+     * run() method.
+     *
+     * @param trader Trader to be controlled.
+     */
+    public void addTrader(Trader trader){
+        if (!controlledTraders.contains(trader)){
+            controlledTraders.add(trader);
+        }
     }
 
     /**
@@ -116,6 +140,11 @@ public class Market {
         return currentDate;
     }
 
+    /**
+     * Advanced toString() override that outputs information in a human-readable format.
+     *
+     * @return String containing all companies current stock price, and/or market status.
+     */
     @Override
     public String toString() {
         StringBuilder out = new StringBuilder("Date: " + this.currentDate.toString() + "\n");
