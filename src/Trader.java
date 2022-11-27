@@ -1,110 +1,177 @@
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.LinkedList;
 
+/**
+ * The Trader object,
+ * Represents a real agent or trader within the active market.
+ * Allows the expected actions of buying, selling and querying owned stocks.
+ * Many helper methods that make the code more readable and usable.
+ */
 public class Trader {
-    private double startFunds;
+    private final double startFunds;
     private double currentFunds;
     private Market market;
-    private Hashtable<String, ArrayList<Transaction>> portfolio = new Hashtable<>();
+    private Hashtable<String, Asset> portfolio = new Hashtable<>();
 
-    public Trader(Market market, double startFunds){
+    /**
+     * Instantiates a new Trader.
+     *
+     * @param market     The Market being traded in.
+     * @param startFunds Initial funds available for trading.
+     */
+    public Trader(Market market, double startFunds) {
         this.startFunds = startFunds;
         this.currentFunds = startFunds;
         this.market = market;
     }
 
-    public double stocksOwned(String ticker){
-        if (!portfolio.containsKey(ticker)){
+    /**
+     * Queries the portfolio and returns how many stocks are owned for that company.
+     *
+     * @param ticker Company ticker.
+     * @return Amount of stock currently owned.
+     */
+    public double stocksOwned(String ticker) {
+        if (!portfolio.containsKey(ticker)) {
             return 0;
         } else {
-            double stockTotal = 0;
-
-            ArrayList<Transaction> currentCompany = this.portfolio.get(ticker);
-            for (Transaction trans:currentCompany) {
-                stockTotal = stockTotal + trans.getAmount();
-            }
-            return stockTotal;
+            return portfolio.get(ticker).getQuantityOwned();
         }
     }
 
-    public ArrayList<Transaction> getTransactions(String company){
-        return portfolio.get(company);
+    /**
+     * Add additional funds available to the trader.
+     *
+     * @param funds Amount of funding being added.
+     */
+    public void addFunds(double funds){
+        this.currentFunds += funds;
     }
 
-    public void buy(Market market, String ticker, double amount) throws InsufficientFundsException {
+    /**
+     * Remove funds available to the trader.
+     *
+     * @param funds Amount of funding being removed.
+     */
+    public void removeFunds(double funds){
+        this.currentFunds -= funds;
+    }
+
+    /**
+     * Run method, used by the controller classes to trigger a market movement when required.
+     * Intentionally meant to be overridden, to allow for advanced users to simulate more complex market behaviours.
+     */
+    public void Run(){}
+
+    /**
+     *  Performs a buying interaction on the current market,
+     *  Initially checks if the trader has enough funds to complete the transaction, before subtracting funds and
+     *  recording the buy using the Asset object format.
+     *
+     * @param ticker Company ticker.
+     * @param amount Amount of stock being bought.
+     * @throws InsufficientFundsException Thrown when trader has insufficient funds to complete transaction.
+     */
+    public void buy(String ticker, double amount) throws InsufficientFundsException {
         double costOfSale = market.findLatestDailyData(ticker).getEndValue() * amount;
-        /*
-            if sufficent funds, create transaction
-            if Portfolio includes previously bought company stocks, add to linked list, else, init linked list
-         */
-        if (costOfSale <= currentFunds){
-            Transaction latestTransaction = new Transaction(ticker, amount, market);
+        if (costOfSale <= currentFunds) {
             this.currentFunds = this.currentFunds - costOfSale;
-            if(portfolio.containsKey(ticker)){
-                portfolio.get(ticker).add(latestTransaction);
+            if (portfolio.containsKey(ticker)) {
+                portfolio.get(ticker).buy(market, ticker, amount);
             } else {
-                ArrayList<Transaction> currentTickerTransactions = new ArrayList<>();
-                currentTickerTransactions.add(latestTransaction);
-                portfolio.put(ticker, currentTickerTransactions);
+                portfolio.put(ticker, new Asset());
+                portfolio.get(ticker).buy(market, ticker, amount);
             }
         } else {
             throw new InsufficientFundsException("Trader requires " + costOfSale + " to complete transaction, but only has " + currentFunds);
         }
     }
 
-    public void sell(Market market, String ticker, double amount) throws InsufficientResourcesException {
+    /**
+     *  Performs a selling interaction on the current market,
+     *  Initially checks if the trader has enough stocks to complete the transaction, before adding funds and
+     *  recording the sale using the Asset object format.
+     *
+     * @param ticker Company ticker.
+     * @param amount Amount of stock being sold.
+     * @throws InsufficientResourcesException Thrown when trader has insufficient stocks to complete transaction.
+     */
+    public void sell(String ticker, double amount) throws InsufficientResourcesException {
         double costOfSale = market.findLatestDailyData(ticker).getEndValue() * amount;
-        if (portfolio.containsKey(ticker)){
-            //check if enough stocks in resource
-            if (stocksOwned(ticker) != 0){
-                Transaction latestTransaction = new Transaction(ticker, amount*-1, market);
-                this.currentFunds = this.currentFunds + costOfSale;
-                if(portfolio.containsKey(ticker)){
-                    portfolio.get(ticker).add(latestTransaction);
-                } else {
-                    ArrayList<Transaction> currentTickerTransactions = new ArrayList<>();
-                    currentTickerTransactions.add(latestTransaction);
-                    portfolio.put(ticker, currentTickerTransactions);
-                }
-                if (stocksOwned(ticker) == 0){
-                    this.portfolio.remove(ticker);
-                }
+        if (canSell(ticker, amount)) {
+            this.currentFunds = this.currentFunds + costOfSale;
+            if (portfolio.containsKey(ticker)) {
+                portfolio.get(ticker).sell(market, ticker, amount);
+            } else {
+                portfolio.put(ticker, new Asset());
+                portfolio.get(ticker).sell(market, ticker, amount);
+            }
+            if(this.portfolio.get(ticker).getQuantityOwned() == 0){
+                this.portfolio.remove(ticker);
             }
         } else {
-            throw new InsufficientResourcesException("Agent does not hold any " + ticker + " stocks to sell");
+            throw new InsufficientResourcesException("Agent does not hold enough " + ticker + " stocks to sell");
         }
     }
 
+    /**
+     *  Performs a mass selling interaction on the current market,
+     *  Iterates through the portfolio and triggers a sell() on each, to ensure all checks are still carried out.
+     */
+    public void sellAll(){
+        Enumeration<String> e = this.portfolio.keys();
+        while (e.hasMoreElements()) {
+            String key = e.nextElement();
+            double amountOwned = this.portfolio.get(key).getQuantityOwned();
+            if(canSell(key, amountOwned)){
+                this.sell(key, amountOwned);
+            }
+        }
+    }
+
+    /**
+     * Helper method to check if trader owns sufficient stock to sell.
+     *
+     * @param ticker the ticker
+     * @param amount the amount
+     * @return the boolean
+     */
+    public boolean canSell(String ticker, double amount) {
+        if (portfolio.containsKey(ticker)) {
+            if (stocksOwned(ticker) != 0) {
+                return stocksOwned(ticker) >= amount;
+            }
+        } else {
+            return false;
+        }
+        return false;
+    }
+
+    /**
+     * Advanced toString() override that outputs all information in a human-readable format.
+     *
+     * @return String containing current funds, initial funds, current date, as well as current portfolio status
+     */
     @Override
     public String toString() {
-        if(portfolio.isEmpty()){
-            return "Empty portfolio";
-        } else {
-            StringBuilder out = new StringBuilder("Current Funds: ").append(this.currentFunds);
-            out.append("\n").append("Initial Funds: ").append(this.startFunds);
+        StringBuilder out = new StringBuilder("Current Funds: ").append(this.currentFunds);
+        out.append("\n").append("Initial Funds: ").append(this.startFunds);
+        out.append("\n").append("Current Date: ").append(this.market.getCurrentDate());
+        if (!portfolio.isEmpty()) {
             Enumeration<String> e = this.portfolio.keys();
             double assetValue = 0;
-            while(e.hasMoreElements()) {
+            while (e.hasMoreElements()) {
                 String key = e.nextElement();
-
-                double stockTotal = 0;
-
-                ArrayList<Transaction> currentCompany = this.portfolio.get(key);
-                for (Transaction trans:currentCompany) {
-                    stockTotal = stockTotal + trans.getAmount();
-                }
+                double stockQuantity = this.portfolio.get(key).getQuantityOwned();
                 double latestDailyValue = market.findLatestDailyData(key).getEndValue();
-                double stockValue = latestDailyValue* stockTotal;
+                double stockValue = latestDailyValue * stockQuantity;
                 assetValue = assetValue + stockValue;
-                out.append("\n    ").append(key).append(": ").append(stockTotal).append(" @ ").append(latestDailyValue).append( " totalling ").append(stockValue);
-
+                out.append("\n    ").append(key).append(": ").append(stockQuantity).append(" @ ").append(latestDailyValue).append(" totalling ").append(stockValue);
             }
-            out.append("\n   \n").append("    Stock Worth: ").append(assetValue);
-            out.append("\n    ").append("Calculated Gain/Loss: ").append((assetValue+currentFunds)-startFunds);
-            return out.toString();
+            out.append("\n").append("Stock Worth: ").append(assetValue);
+            out.append("\n").append("Calculated Gain/Loss: ").append((assetValue + currentFunds) - startFunds);
+            out.append("\n");
         }
+        return out.toString();
     }
 }

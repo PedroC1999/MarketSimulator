@@ -82,7 +82,7 @@ public class Main {
     public static void testTraders() throws InsufficientFundsException, InsufficientResourcesException {
         Hashtable<String, Company> data = new Hashtable<>();
         data.put("AAPL", new Company("data/AAPL.csv", "AAPL"));
-        data.put("AMD", new Company("data/AMD.csv", "AMD"));
+        data.put("AMD" , new Company("data/AMD.csv",  "AMD" ));
         data.put("AMZN", new Company("data/AMZN.csv", "AMZN"));
         data.put("META", new Company("data/META.csv", "META"));
         data.put("NFLX", new Company("data/NFLX.csv", "NFLX"));
@@ -97,12 +97,16 @@ public class Main {
         market.toggleActive();
 
         Trader a1 = new Trader(market, 5000);
-        a1.buy(market, "KLAC", 10);
-        a1.buy(market, "QCOM", 10);
+        a1.buy("KLAC", 10);
+        a1.buy("QCOM", 10);
+        System.out.println(a1);
+        a1.buy("KLAC", 3);
         System.out.println(a1);
         market.addDays(365);
         System.out.println(a1);
-        a1.sell(market, "KLAC", 9);
+        a1.sell("KLAC", 10);
+        System.out.println(a1);
+        a1.sellAll();
         System.out.println(a1);
 
 

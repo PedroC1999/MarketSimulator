@@ -1,6 +1,5 @@
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
-import org.javatuples.Pair;
 
 import java.io.FileReader;
 import java.time.LocalDate;
@@ -8,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+/**
+ * The Company object. Represents a company that is able to be traded on the Market.
+ * Once data is imported/processed and data structure is created, mainly used to facilitate data access across objects.
+ */
 public class Company {
     private final String ticker;
     private final Hashtable<LocalDate, DailyData> dailyData;
@@ -17,6 +20,15 @@ public class Company {
     private DailyData highestClose;
     private DailyData lowestClose;
 
+    /**
+     * Instantiates a new Company. Requires a .csv file in format as per NASDAQ/YahooFinance (and potentially others).
+     * First line is column titles, further layout is as shown below:
+     *
+     * Date,Close/Last,Volume,Open,High,Low
+     *
+     * @param historyCSV Path to .csv file in specified format
+     * @param ticker     Company ticker
+     */
     public Company(String historyCSV, String ticker) {
         this.ticker = ticker;
         List<String[]> unprocessedData = readCSV(historyCSV);
@@ -24,6 +36,13 @@ public class Company {
         this.dailyData = createDailyData(unprocessedData);
     }
 
+    /**
+     * Finds all dailyData objects within the startDate and endDate, and returns them as an ArrayList
+     *
+     * @param startDate Starting date of search.
+     * @param endDate   Ending date of search.
+     * @return ArrayList containing all dailyData between the dates.
+     */
     public ArrayList<DailyData> getDailyDataBetweenDates(LocalDate startDate, LocalDate endDate){
         ArrayList<DailyData> list = new ArrayList<>();
         for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
@@ -32,6 +51,13 @@ public class Company {
         return list;
     }
 
+    /**
+     * Creates DailyData data structure, reads the String array list line by line.
+     * Extracts data to create the objects and stores in a Hashtable for easy/efficient lookups.
+     *
+     * @param data List of String arrays, within the expected format defined in readCSV().
+     * @return Completed Hashtable of dailyData objects, indexed by LocalDate.
+     */
     public Hashtable<LocalDate, DailyData> createDailyData(List<String[]> data) {
         Hashtable<LocalDate, DailyData> dataHashtable = new Hashtable<>();
         for (String[] row : data) {
@@ -52,6 +78,12 @@ public class Company {
         return dataHashtable;
     }
 
+    /**
+     * Analyse the dailyData and computes overall Highs/Lows.
+     * Modifies the dailyData directly, so no returns are expected.
+     *
+     * @param data dailyData object to be processed.
+     */
     public void AnalyseDailyData(DailyData data) {
         if (this.highestHigh == null) {
             this.highestHigh = data;
@@ -86,6 +118,16 @@ public class Company {
         }
     }
 
+    /**
+     *  Initial step in reading the CSV file, this opens the file and dumps its contents into a list of String arrays.
+     *  Expected format is as per NASDAQ/YahooFinance (and potentially others). First line is column titles.
+     *  Further layout is as shown below:
+     *
+     *  Date,Close/Last,Volume,Open,High,Low
+     *
+     * @param file File data is being read from.
+     * @return Complete String[] of all data available in the file.
+     */
     private static List<String[]> readCSV(String file) {
         try {
             // Create an object of file reader
@@ -104,10 +146,21 @@ public class Company {
         }
     }
 
+    /**
+     * Finds and returns dailyData object for the date provided.
+     *
+     * @param date Date being asked for.
+     * @return dailyData object for that date.
+     */
     public DailyData getDailyData(LocalDate date) {
         return dailyData.get(date);
     }
 
+    /**
+     * Basic toString() override that outputs this companies highest/lowest ever values and closing values.
+     *
+     * @return String containing highest/lowest ever values and closing values.
+     */
     @Override
     public String toString() {
         return "Ticker: " + this.ticker
@@ -115,6 +168,5 @@ public class Company {
                 + ")\nLowest Value: " + lowestLow.getLowestValue() + " (" + lowestLow.getDate()
                 + ")\nHighest Closing Value: " + highestClose.getEndValue() + " (" + highestClose.getDate()
                 + ")\nLowest Closing Value: " + lowestClose.getEndValue() + " (" + lowestClose.getDate() + ")";
-
     }
 }
