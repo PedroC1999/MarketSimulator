@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5601c221-c267-475c-b57b-62380898d755" name="Changes" comment="Fundamentals Completed">
-      <change afterPath="$PROJECT_DIR$/src/Asset.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/TraderBasic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="5601c221-c267-475c-b57b-62380898d755" name="Changes" comment="Many chnages, major JavaDoc process, refactored how Transactions are stored">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MastersProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/MastersProject.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Asset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Asset.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Company.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DailyData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DailyData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/InsufficientFundsException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InsufficientFundsException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/InsufficientResourcesException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InsufficientResourcesException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Market.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Market.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Trader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Trader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TraderBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TraderBasic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Transaction.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +97,7 @@
       <workItem from="1665425119233" duration="3043000" />
       <workItem from="1668434795817" duration="3635000" />
       <workItem from="1669226972691" duration="33647000" />
-      <workItem from="1669541995086" duration="5352000" />
+      <workItem from="1669541995086" duration="8818000" />
     </task>
     <task id="LOCAL-00001" summary="Fundamentals Completed">
       <created>1668434826704</created>
@@ -104,7 +106,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668434826704</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Many chnages, major JavaDoc process, refactored how Transactions are stored">
+      <created>1669547447059</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1669547447059</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,7 +132,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fundamentals Completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fundamentals Completed" />
+    <MESSAGE value="Many chnages, major JavaDoc process, refactored how Transactions are stored" />
+    <option name="LAST_COMMIT_MESSAGE" value="Many chnages, major JavaDoc process, refactored how Transactions are stored" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

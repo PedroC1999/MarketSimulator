@@ -9,9 +9,9 @@ import java.util.Hashtable;
  */
 public class Trader {
     private final double startFunds;
+    private final Market market;
+    private final Hashtable<String, Asset> portfolio = new Hashtable<>();
     private double currentFunds;
-    private Market market;
-    private Hashtable<String, Asset> portfolio = new Hashtable<>();
 
     /**
      * Instantiates a new Trader.
@@ -44,7 +44,7 @@ public class Trader {
      *
      * @param funds Amount of funding being added.
      */
-    public void addFunds(double funds){
+    public void addFunds(double funds) {
         this.currentFunds += funds;
     }
 
@@ -53,7 +53,7 @@ public class Trader {
      *
      * @param funds Amount of funding being removed.
      */
-    public void removeFunds(double funds){
+    public void removeFunds(double funds) {
         this.currentFunds -= funds;
     }
 
@@ -61,12 +61,13 @@ public class Trader {
      * Run method, used by the controller classes to trigger a market movement when required.
      * Intentionally meant to be overridden, to allow for advanced users to simulate more complex market behaviours.
      */
-    public void Run(){}
+    public void Run() {
+    }
 
     /**
-     *  Performs a buying interaction on the current market,
-     *  Initially checks if the trader has enough funds to complete the transaction, before subtracting funds and
-     *  recording the buy using the Asset object format.
+     * Performs a buying interaction on the current market,
+     * Initially checks if the trader has enough funds to complete the transaction, before subtracting funds and
+     * recording the buy using the Asset object format.
      *
      * @param ticker Company ticker.
      * @param amount Amount of stock being bought.
@@ -88,9 +89,9 @@ public class Trader {
     }
 
     /**
-     *  Performs a selling interaction on the current market,
-     *  Initially checks if the trader has enough stocks to complete the transaction, before adding funds and
-     *  recording the sale using the Asset object format.
+     * Performs a selling interaction on the current market,
+     * Initially checks if the trader has enough stocks to complete the transaction, before adding funds and
+     * recording the sale using the Asset object format.
      *
      * @param ticker Company ticker.
      * @param amount Amount of stock being sold.
@@ -106,7 +107,7 @@ public class Trader {
                 portfolio.put(ticker, new Asset());
                 portfolio.get(ticker).sell(market, ticker, amount);
             }
-            if(this.portfolio.get(ticker).getQuantityOwned() == 0){
+            if (this.portfolio.get(ticker).getQuantityOwned() == 0) {
                 this.portfolio.remove(ticker);
             }
         } else {
@@ -115,15 +116,15 @@ public class Trader {
     }
 
     /**
-     *  Performs a mass selling interaction on the current market,
-     *  Iterates through the portfolio and triggers a sell() on each, to ensure all checks are still carried out.
+     * Performs a mass selling interaction on the current market,
+     * Iterates through the portfolio and triggers a sell() on each, to ensure all checks are still carried out.
      */
-    public void sellAll(){
+    public void sellAll() {
         Enumeration<String> e = this.portfolio.keys();
         while (e.hasMoreElements()) {
             String key = e.nextElement();
             double amountOwned = this.portfolio.get(key).getQuantityOwned();
-            if(canSell(key, amountOwned)){
+            if (canSell(key, amountOwned)) {
                 this.sell(key, amountOwned);
             }
         }

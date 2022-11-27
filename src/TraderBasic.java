@@ -1,4 +1,4 @@
-public class TraderBasic extends Trader{
+public class TraderBasic extends Trader {
     private int daysElapsed = 0;
 
     public TraderBasic(Market market, double startFunds) {
@@ -7,9 +7,9 @@ public class TraderBasic extends Trader{
 
     @Override
     public void Run() {
-        if(daysElapsed < 10){
+        if (daysElapsed < 10) {
             //wait for more data
-        }else{
+        } else {
             //DailyData before = this.market.findCompany("KLAC").getDailyData(market.getCurrentDate().minusDays(10));
         }
         daysElapsed++;

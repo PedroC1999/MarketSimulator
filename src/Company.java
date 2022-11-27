@@ -23,7 +23,7 @@ public class Company {
     /**
      * Instantiates a new Company. Requires a .csv file in format as per NASDAQ/YahooFinance (and potentially others).
      * First line is column titles, further layout is as shown below:
-     *
+     * <p>
      * Date,Close/Last,Volume,Open,High,Low
      *
      * @param historyCSV Path to .csv file in specified format
@@ -37,13 +37,41 @@ public class Company {
     }
 
     /**
+     * Initial step in reading the CSV file, this opens the file and dumps its contents into a list of String arrays.
+     * Expected format is as per NASDAQ/YahooFinance (and potentially others). First line is column titles.
+     * Further layout is as shown below:
+     * <p>
+     * Date,Close/Last,Volume,Open,High,Low
+     *
+     * @param file File data is being read from.
+     * @return Complete String[] of all data available in the file.
+     */
+    private static List<String[]> readCSV(String file) {
+        try {
+            // Create an object of file reader
+            // class with CSV file as a parameter.
+            FileReader filereader = new FileReader(file);
+
+            // create csvReader object and skip first Line
+            CSVReader csvReader = new CSVReaderBuilder(filereader)
+                    .withSkipLines(1)
+                    .build();
+            List<String[]> dataCSV = csvReader.readAll();
+            return dataCSV;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
      * Finds all dailyData objects within the startDate and endDate, and returns them as an ArrayList
      *
      * @param startDate Starting date of search.
      * @param endDate   Ending date of search.
      * @return ArrayList containing all dailyData between the dates.
      */
-    public ArrayList<DailyData> getDailyDataBetweenDates(LocalDate startDate, LocalDate endDate){
+    public ArrayList<DailyData> getDailyDataBetweenDates(LocalDate startDate, LocalDate endDate) {
         ArrayList<DailyData> list = new ArrayList<>();
         for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
             list.add(this.getDailyData(date));
@@ -62,9 +90,9 @@ public class Company {
         Hashtable<LocalDate, DailyData> dataHashtable = new Hashtable<>();
         for (String[] row : data) {
             char[] currentDate = row[0].toCharArray();
-            int currentYear = Integer.parseInt(new String(currentDate, 6, 4 ));
-            int currentMonth = Integer.parseInt(new String(currentDate, 3, 2 ));
-            int currentDay = Integer.parseInt(new String(currentDate, 0, 2 ));
+            int currentYear = Integer.parseInt(new String(currentDate, 6, 4));
+            int currentMonth = Integer.parseInt(new String(currentDate, 3, 2));
+            int currentDay = Integer.parseInt(new String(currentDate, 0, 2));
             LocalDate currentLocalDate = LocalDate.of(currentYear, currentDay, currentMonth);
             double currentVolume = Double.parseDouble(row[2]);
             double currentStartValue = Double.parseDouble(row[3].replace("$", ""));
@@ -115,34 +143,6 @@ public class Company {
             if (data.getEndValue() < this.lowestClose.getEndValue()) {
                 this.lowestClose = data;
             }
-        }
-    }
-
-    /**
-     *  Initial step in reading the CSV file, this opens the file and dumps its contents into a list of String arrays.
-     *  Expected format is as per NASDAQ/YahooFinance (and potentially others). First line is column titles.
-     *  Further layout is as shown below:
-     *
-     *  Date,Close/Last,Volume,Open,High,Low
-     *
-     * @param file File data is being read from.
-     * @return Complete String[] of all data available in the file.
-     */
-    private static List<String[]> readCSV(String file) {
-        try {
-            // Create an object of file reader
-            // class with CSV file as a parameter.
-            FileReader filereader = new FileReader(file);
-
-            // create csvReader object and skip first Line
-            CSVReader csvReader = new CSVReaderBuilder(filereader)
-                    .withSkipLines(1)
-                    .build();
-            List<String[]> dataCSV = csvReader.readAll();
-            return dataCSV;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
         }
     }
 

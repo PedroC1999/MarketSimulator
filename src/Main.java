@@ -1,9 +1,6 @@
-import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
-
-import java.io.FileReader;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class Main {
 
@@ -15,7 +12,7 @@ public class Main {
         testTraders();
     }
 
-    public static void testCompanies(){
+    public static void testCompanies() {
         ArrayList<Company> data = new ArrayList<>();
         data.add(new Company("data/AAPL.csv", "AAPL"));
         data.add(new Company("data/AMD.csv", "AMD"));
@@ -29,13 +26,13 @@ public class Main {
         LocalDate localDate = LocalDate.of(2020, 11, 24);
         //Market market = new Market(data, localDate., 5000);
 
-        for (Company i:data) {
+        for (Company i : data) {
             //System.out.println(i.toString());
             System.out.println(i.getDailyData(localDate));
         }
     }
 
-    public static void testMarket(){
+    public static void testMarket() {
         Hashtable<String, Company> data = new Hashtable<>();
         data.put("AAPL", new Company("data/AAPL.csv", "AAPL"));
         data.put("AMD", new Company("data/AMD.csv", "AMD"));
@@ -82,7 +79,7 @@ public class Main {
     public static void testTraders() throws InsufficientFundsException, InsufficientResourcesException {
         Hashtable<String, Company> data = new Hashtable<>();
         data.put("AAPL", new Company("data/AAPL.csv", "AAPL"));
-        data.put("AMD" , new Company("data/AMD.csv",  "AMD" ));
+        data.put("AMD", new Company("data/AMD.csv", "AMD"));
         data.put("AMZN", new Company("data/AMZN.csv", "AMZN"));
         data.put("META", new Company("data/META.csv", "META"));
         data.put("NFLX", new Company("data/NFLX.csv", "NFLX"));

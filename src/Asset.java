@@ -7,27 +7,27 @@ import java.util.ArrayList;
  * Allows for more advanced calculations/interactions to be carried out within this class.
  */
 public class Asset {
-    private double quantityOwned = 0;
     private final ArrayList<Transaction> transactions = new ArrayList<>();
+    private double quantityOwned = 0;
 
     /**
      * Get quantity of stocks owned.
      *
      * @return Amount of stocks owned by agent within a company/market.
      */
-    public double getQuantityOwned(){
+    public double getQuantityOwned() {
         return this.quantityOwned;
     }
 
     /**
-     *  Records a buying transaction for the current trader,
+     * Records a buying transaction for the current trader,
      * Requires the current market, the company ticker and the amount being bought to ensure data is accessible within other class.
      *
      * @param market Market being traded in.
      * @param ticker Company ticker.
      * @param amount Amount of stock being bought.
      */
-    public void buy(Market market, String ticker, double amount){
+    public void buy(Market market, String ticker, double amount) {
         Transaction latestTransaction = new Transaction(ticker, amount, market);
         this.quantityOwned += amount;
         transactions.add(latestTransaction);
@@ -41,7 +41,7 @@ public class Asset {
      * @param ticker Company ticker.
      * @param amount Amount of stock being sell.
      */
-    public void sell(Market market, String ticker, double amount){
+    public void sell(Market market, String ticker, double amount) {
         Transaction latestTransaction = new Transaction(ticker, amount, market);
         this.quantityOwned -= amount;
         transactions.add(latestTransaction);
