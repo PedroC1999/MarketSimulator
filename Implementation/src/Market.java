@@ -1,3 +1,5 @@
+import com.google.gson.Gson;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -159,5 +161,15 @@ public class Market {
             }
         }
         return out.toString();
+    }
+
+    /**
+     * Converts this Market object to a JSON string.
+     *
+     * @return the JSON string representation of this Market object.
+     */
+    public String toJson() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

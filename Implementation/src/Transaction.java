@@ -1,3 +1,5 @@
+import com.google.gson.Gson;
+
 import java.time.LocalDate;
 
 /**
@@ -63,5 +65,15 @@ public class Transaction {
      */
     public LocalDate getDate() {
         return this.date;
+    }
+
+    /**
+     * Converts this Transaction object to a JSON string.
+     *
+     * @return the JSON string representation of this Transaction object.
+     */
+    public String toJson() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

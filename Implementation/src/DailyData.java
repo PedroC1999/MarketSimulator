@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import com.google.gson.Gson;
 
 /**
  * The DailyData object. Lowest level data storage in the structure.
@@ -95,13 +96,25 @@ public class DailyData {
      */
     @Override
     public String toString() {
-        return ticker + "{" +
-                "date='" + date + '\'' +
-                ", volume=" + volume +
-                ", startValue=" + startValue +
-                ", endValue=" + endValue +
-                ", highestValue=" + highestValue +
-                ", lowestValue=" + lowestValue +
-                '}';
+
+        StringBuilder out = new StringBuilder();
+        out.append(ticker).append(": ").append(" Date = ").append(date);
+        out.append(", Start = ").append(startValue);
+        out.append(", End = ").append(endValue);
+        out.append(", Highest = ").append(highestValue);
+        out.append(", Lowest = ").append(lowestValue);
+        out.append(", Volume = ").append(volume);
+
+        return out.toString();
+    }
+
+    /**
+     * Converts this DailyData object to a JSON string.
+     *
+     * @return the JSON string representation of this DailyData object.
+     */
+    public String toJson() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

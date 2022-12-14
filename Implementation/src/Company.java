@@ -1,3 +1,4 @@
+import com.google.gson.Gson;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
@@ -14,7 +15,6 @@ import java.util.List;
 public class Company {
     private final String ticker;
     private final Hashtable<LocalDate, DailyData> dailyData;
-
     private DailyData highestHigh;
     private DailyData lowestLow;
     private DailyData highestClose;
@@ -34,6 +34,16 @@ public class Company {
         List<String[]> unprocessedData = readCSV(historyCSV);
         assert unprocessedData != null;
         this.dailyData = createDailyData(unprocessedData);
+    }
+
+    /**
+     * Instantiates a new Company. No .csv file is required as DailyData expected to be added afterwards
+     *
+     * @param ticker     Company ticker
+     */
+    public Company(String ticker) {
+        this.ticker = ticker;
+        this.dailyData = new Hashtable<LocalDate, DailyData>();
     }
 
     /**
@@ -65,11 +75,11 @@ public class Company {
     }
 
     /**
-     * Finds all dailyData objects within the startDate and endDate, and returns them as an ArrayList
+     * Finds all DailyData objects within the startDate and endDate, and returns them as an ArrayList
      *
      * @param startDate Starting date of search.
      * @param endDate   Ending date of search.
-     * @return ArrayList containing all dailyData between the dates.
+     * @return ArrayList containing all DailyData between the dates.
      */
     public ArrayList<DailyData> getDailyDataBetweenDates(LocalDate startDate, LocalDate endDate) {
         ArrayList<DailyData> list = new ArrayList<>();
@@ -77,6 +87,22 @@ public class Company {
             list.add(this.getDailyData(date));
         }
         return list;
+    }
+
+    /**
+     * Finds all DailyData objects within the startDate and endDate, and returns them as a Json String.
+     *
+     * @param startDate Starting date of search.
+     * @param endDate   Ending date of search.
+     * @return Json String containing an ArrayList with all DailyData between the dates.
+     */
+    public String getDailyDataBetweenDatesJson(LocalDate startDate, LocalDate endDate) {
+        ArrayList<DailyData> list = new ArrayList<>();
+        for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
+            list.add(this.getDailyData(date));
+        }
+        Gson gson = new Gson();
+        return gson.toJson(list);
     }
 
     /**
@@ -168,5 +194,19 @@ public class Company {
                 + ")\nLowest Value: " + lowestLow.getLowestValue() + " (" + lowestLow.getDate()
                 + ")\nHighest Closing Value: " + highestClose.getEndValue() + " (" + highestClose.getDate()
                 + ")\nLowest Closing Value: " + lowestClose.getEndValue() + " (" + lowestClose.getDate() + ")";
+    }
+
+    /**
+     * Converts this Company object to a JSON string.
+     *
+     * @return the JSON string representation of this Company object.
+     */
+    public String toJson() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
+
+    public void addDailyData(DailyData dailyData) {
+        this.dailyData.put(dailyData.getDate(), dailyData);
     }
 }

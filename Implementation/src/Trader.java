@@ -1,3 +1,5 @@
+import com.google.gson.Gson;
+
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -11,6 +13,16 @@ public class Trader {
     private final double startFunds;
     private final Market market;
     private final Hashtable<String, Asset> portfolio = new Hashtable<>();
+
+    /**
+     * Gets the current amount of funds in the account.
+     *
+     * @return Amount of funds currently Available.
+     */
+    public double getCurrentFunds() {
+        return currentFunds;
+    }
+
     private double currentFunds;
 
     /**
@@ -172,7 +184,19 @@ public class Trader {
             out.append("\n").append("Stock Worth: ").append(assetValue);
             out.append("\n").append("Calculated Gain/Loss: ").append((assetValue + currentFunds) - startFunds);
             out.append("\n");
+        } else{
+            out.append("\n    ").append("Empty Portfolio");
         }
         return out.toString();
     }
+    /**
+     * Converts this Trader object to a JSON string.
+     *
+     * @return the JSON string representation of this Trader object.
+     */
+    public String toJson() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
+
 }

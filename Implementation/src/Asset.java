@@ -1,3 +1,5 @@
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 /**
@@ -45,5 +47,15 @@ public class Asset {
         Transaction latestTransaction = new Transaction(ticker, amount, market);
         this.quantityOwned -= amount;
         transactions.add(latestTransaction);
+    }
+
+    /**
+     * Converts this Asset object to a JSON string.
+     *
+     * @return the JSON string representation of this Asset object.
+     */
+    public String toJson() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }
